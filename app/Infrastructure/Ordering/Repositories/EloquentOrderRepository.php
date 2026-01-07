@@ -6,8 +6,8 @@ use App\Domain\Ordering\Entities\Order;
 use App\Domain\Ordering\Entities\OrderItem;
 use App\Domain\Ordering\Repositories\OrderRepository;
 use App\Domain\Ordering\ValueObjects\OrderStatus;
-use App\Infrastructure\Ordering\Models\OrderModel;
 use App\Infrastructure\Ordering\Models\OrderItemModel;
+use App\Infrastructure\Ordering\Models\OrderModel;
 use App\Shared\ValueObjects\Address;
 use App\Shared\ValueObjects\Money;
 use Illuminate\Support\Str;
@@ -33,7 +33,7 @@ class EloquentOrderRepository implements OrderRepository
         return OrderModel::with('items')
             ->where('customer_id', $customerId)
             ->get()
-            ->map(fn($model) => $this->toEntity($model))
+            ->map(fn ($model) => $this->toEntity($model))
             ->toArray();
     }
 
@@ -62,7 +62,7 @@ class EloquentOrderRepository implements OrderRepository
         // Save order items
         OrderItemModel::where('order_id', $order->getId())->delete();
         foreach ($order->getItems() as $item) {
-            $itemModel = new OrderItemModel();
+            $itemModel = new OrderItemModel;
             $itemModel->id = $item->getId();
             $itemModel->order_id = $order->getId();
             $itemModel->product_id = $item->getProductId();
@@ -85,7 +85,7 @@ class EloquentOrderRepository implements OrderRepository
     public function generateOrderNumber(): string
     {
         do {
-            $orderNumber = 'ORD-' . strtoupper(Str::random(8));
+            $orderNumber = 'ORD-'.strtoupper(Str::random(8));
         } while (OrderModel::where('order_number', $orderNumber)->exists());
 
         return $orderNumber;
@@ -157,4 +157,3 @@ class EloquentOrderRepository implements OrderRepository
         );
     }
 }
-

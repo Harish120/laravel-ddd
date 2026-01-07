@@ -14,4 +14,3 @@ interface CustomerRepository
 
     public function delete(Customer $customer): void;
 }
-

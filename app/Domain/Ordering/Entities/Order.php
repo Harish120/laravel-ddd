@@ -2,26 +2,38 @@
 
 namespace App\Domain\Ordering\Entities;
 
-use App\Shared\Entity;
-use App\Shared\ValueObjects\Money;
-use App\Shared\ValueObjects\Address;
 use App\Domain\Ordering\ValueObjects\OrderStatus;
+use App\Shared\Entity;
+use App\Shared\ValueObjects\Address;
+use App\Shared\ValueObjects\Money;
 use InvalidArgumentException;
 
 class Order extends Entity
 {
     private string $customerId;
+
     private string $orderNumber;
+
     private OrderStatus $status;
+
     private array $items = [];
+
     private Money $subtotal;
+
     private Money $shippingCost;
+
     private Money $tax;
+
     private Money $total;
+
     private ?Address $shippingAddress = null;
+
     private ?Address $billingAddress = null;
+
     private ?string $notes = null;
+
     private \DateTimeImmutable $createdAt;
+
     private ?\DateTimeImmutable $updatedAt = null;
 
     public function __construct(
@@ -35,7 +47,7 @@ class Order extends Entity
         $this->shippingCost = new Money(0);
         $this->tax = new Money(0);
         $this->total = new Money(0);
-        $this->createdAt = new \DateTimeImmutable();
+        $this->createdAt = new \DateTimeImmutable;
     }
 
     public function getCustomerId(): string
@@ -155,6 +167,7 @@ class Order extends Entity
             if ($existingItem->getProductId() === $item->getProductId()) {
                 $existingItem->increaseQuantity($item->getQuantity());
                 $this->recalculateTotals();
+
                 return;
             }
         }
@@ -196,7 +209,7 @@ class Order extends Entity
 
     public function confirm(): void
     {
-        if (!$this->status->canTransitionTo(OrderStatus::CONFIRMED())) {
+        if (! $this->status->canTransitionTo(OrderStatus::CONFIRMED())) {
             throw new InvalidArgumentException('Order cannot be confirmed from current status');
         }
 
@@ -209,47 +222,47 @@ class Order extends Entity
         }
 
         $this->status = OrderStatus::CONFIRMED();
-        $this->updatedAt = new \DateTimeImmutable();
+        $this->updatedAt = new \DateTimeImmutable;
     }
 
     public function cancel(): void
     {
-        if (!$this->status->canTransitionTo(OrderStatus::CANCELLED())) {
+        if (! $this->status->canTransitionTo(OrderStatus::CANCELLED())) {
             throw new InvalidArgumentException('Order cannot be cancelled from current status');
         }
 
         $this->status = OrderStatus::CANCELLED();
-        $this->updatedAt = new \DateTimeImmutable();
+        $this->updatedAt = new \DateTimeImmutable;
     }
 
     public function markAsProcessing(): void
     {
-        if (!$this->status->canTransitionTo(OrderStatus::PROCESSING())) {
+        if (! $this->status->canTransitionTo(OrderStatus::PROCESSING())) {
             throw new InvalidArgumentException('Order cannot be marked as processing from current status');
         }
 
         $this->status = OrderStatus::PROCESSING();
-        $this->updatedAt = new \DateTimeImmutable();
+        $this->updatedAt = new \DateTimeImmutable;
     }
 
     public function markAsShipped(): void
     {
-        if (!$this->status->canTransitionTo(OrderStatus::SHIPPED())) {
+        if (! $this->status->canTransitionTo(OrderStatus::SHIPPED())) {
             throw new InvalidArgumentException('Order cannot be marked as shipped from current status');
         }
 
         $this->status = OrderStatus::SHIPPED();
-        $this->updatedAt = new \DateTimeImmutable();
+        $this->updatedAt = new \DateTimeImmutable;
     }
 
     public function markAsDelivered(): void
     {
-        if (!$this->status->canTransitionTo(OrderStatus::DELIVERED())) {
+        if (! $this->status->canTransitionTo(OrderStatus::DELIVERED())) {
             throw new InvalidArgumentException('Order cannot be marked as delivered from current status');
         }
 
         $this->status = OrderStatus::DELIVERED();
-        $this->updatedAt = new \DateTimeImmutable();
+        $this->updatedAt = new \DateTimeImmutable;
     }
 
     public function recalculateTotals(): void
@@ -281,7 +294,6 @@ class Order extends Entity
 
     public function getTotalQuantity(): int
     {
-        return array_sum(array_map(fn($item) => $item->getQuantity(), $this->items));
+        return array_sum(array_map(fn ($item) => $item->getQuantity(), $this->items));
     }
 }
-

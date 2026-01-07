@@ -7,7 +7,6 @@ use App\Domain\Catalog\Repositories\ProductRepository;
 use App\Domain\Ordering\Entities\Order;
 use App\Domain\Ordering\Entities\OrderItem;
 use App\Domain\Ordering\Repositories\OrderRepository;
-use App\Domain\Ordering\DomainEvents\OrderCreated;
 use App\Shared\Exceptions\EntityNotFoundException;
 use App\Shared\ValueObjects\Money;
 use Illuminate\Support\Str;
@@ -17,8 +16,7 @@ class OrderService
     public function __construct(
         private readonly OrderRepository $orderRepository,
         private readonly ProductRepository $productRepository
-    ) {
-    }
+    ) {}
 
     public function createOrder(CreateOrderDTO $dto): Order
     {
@@ -45,11 +43,11 @@ class OrderService
         foreach ($dto->items as $itemDTO) {
             $product = $this->productRepository->findById($itemDTO->productId);
 
-            if (!$product) {
+            if (! $product) {
                 throw EntityNotFoundException::forEntity('Product', $itemDTO->productId);
             }
 
-            if (!$product->isAvailable()) {
+            if (! $product->isAvailable()) {
                 throw new \DomainException("Product {$product->getName()} is not available");
             }
 
@@ -86,7 +84,7 @@ class OrderService
     {
         $order = $this->orderRepository->findById($orderId);
 
-        if (!$order) {
+        if (! $order) {
             throw EntityNotFoundException::forEntity('Order', $orderId);
         }
 
@@ -100,7 +98,7 @@ class OrderService
     {
         $order = $this->orderRepository->findById($orderId);
 
-        if (!$order) {
+        if (! $order) {
             throw EntityNotFoundException::forEntity('Order', $orderId);
         }
 
@@ -112,4 +110,3 @@ class OrderService
         return $this->orderRepository->findByCustomerId($customerId);
     }
 }
-

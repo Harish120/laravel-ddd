@@ -6,17 +6,14 @@ use App\Application\Catalog\DTOs\CreateProductDTO;
 use App\Application\Catalog\DTOs\ProductDTO;
 use App\Domain\Catalog\Entities\Product;
 use App\Domain\Catalog\Repositories\ProductRepository;
-use App\Domain\Catalog\ValueObjects\ProductStatus;
 use App\Shared\Exceptions\EntityNotFoundException;
-use App\Shared\ValueObjects\Money;
 use Illuminate\Support\Str;
 
 class ProductService
 {
     public function __construct(
         private readonly ProductRepository $productRepository
-    ) {
-    }
+    ) {}
 
     public function createProduct(CreateProductDTO $dto): ProductDTO
     {
@@ -47,7 +44,7 @@ class ProductService
     {
         $product = $this->productRepository->findById($id);
 
-        if (!$product) {
+        if (! $product) {
             throw EntityNotFoundException::forEntity('Product', $id);
         }
 
@@ -58,7 +55,7 @@ class ProductService
     {
         $product = $this->productRepository->findById($id);
 
-        if (!$product) {
+        if (! $product) {
             throw EntityNotFoundException::forEntity('Product', $id);
         }
 
@@ -84,7 +81,7 @@ class ProductService
     {
         $product = $this->productRepository->findById($id);
 
-        if (!$product) {
+        if (! $product) {
             throw EntityNotFoundException::forEntity('Product', $id);
         }
 
@@ -98,14 +95,14 @@ class ProductService
     {
         $products = $this->productRepository->findAll();
 
-        return array_map(fn($product) => $this->toDTO($product), $products);
+        return array_map(fn ($product) => $this->toDTO($product), $products);
     }
 
     public function getActiveProducts(): array
     {
         $products = $this->productRepository->findActive();
 
-        return array_map(fn($product) => $this->toDTO($product), $products);
+        return array_map(fn ($product) => $this->toDTO($product), $products);
     }
 
     private function toDTO(Product $product): ProductDTO
@@ -129,7 +126,6 @@ class ProductService
         $base = substr($base, 0, 10);
         $random = Str::random(4);
 
-        return $base . '-' . $random;
+        return $base.'-'.$random;
     }
 }
-

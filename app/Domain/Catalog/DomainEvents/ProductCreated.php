@@ -8,7 +8,5 @@ class ProductCreated
 {
     public function __construct(
         public readonly Product $product
-    ) {
-    }
+    ) {}
 }
-

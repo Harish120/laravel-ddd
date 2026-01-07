@@ -82,4 +82,3 @@ class Money extends ValueObject
         }
     }
 }
-

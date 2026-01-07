@@ -50,7 +50,7 @@ class EloquentProductRepository implements ProductRepository
     public function findAll(): array
     {
         return ProductModel::all()
-            ->map(fn($model) => $this->toEntity($model))
+            ->map(fn ($model) => $this->toEntity($model))
             ->toArray();
     }
 
@@ -58,7 +58,7 @@ class EloquentProductRepository implements ProductRepository
     {
         return ProductModel::where('status', 'active')
             ->get()
-            ->map(fn($model) => $this->toEntity($model))
+            ->map(fn ($model) => $this->toEntity($model))
             ->toArray();
     }
 
@@ -92,4 +92,3 @@ class EloquentProductRepository implements ProductRepository
         return $product;
     }
 }
-

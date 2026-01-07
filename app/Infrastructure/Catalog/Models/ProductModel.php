@@ -2,8 +2,8 @@
 
 namespace App\Infrastructure\Catalog\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Model;
 
 class ProductModel extends Model
 {
@@ -30,4 +30,3 @@ class ProductModel extends Model
         'images' => 'array',
     ];
 }
-

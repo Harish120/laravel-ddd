@@ -11,8 +11,7 @@ class Address extends ValueObject
         private readonly string $zipCode,
         private readonly string $country,
         private readonly ?string $addressLine2 = null
-    ) {
-    }
+    ) {}
 
     public function getStreet(): string
     {
@@ -48,9 +47,9 @@ class Address extends ValueObject
     {
         $address = $this->street;
         if ($this->addressLine2) {
-            $address .= ', ' . $this->addressLine2;
+            $address .= ', '.$this->addressLine2;
         }
-        $address .= ', ' . $this->city . ', ' . $this->state . ' ' . $this->zipCode . ', ' . $this->country;
+        $address .= ', '.$this->city.', '.$this->state.' '.$this->zipCode.', '.$this->country;
 
         return $address;
     }
@@ -67,4 +66,3 @@ class Address extends ValueObject
         ];
     }
 }
-

@@ -8,15 +8,20 @@ use InvalidArgumentException;
 class OrderStatus extends ValueObject
 {
     private const PENDING = 'pending';
+
     private const CONFIRMED = 'confirmed';
+
     private const PROCESSING = 'processing';
+
     private const SHIPPED = 'shipped';
+
     private const DELIVERED = 'delivered';
+
     private const CANCELLED = 'cancelled';
 
     private function __construct(private readonly string $value)
     {
-        if (!in_array($value, [
+        if (! in_array($value, [
             self::PENDING,
             self::CONFIRMED,
             self::PROCESSING,
@@ -95,4 +100,3 @@ class OrderStatus extends ValueObject
         return ['value' => $this->value];
     }
 }
-

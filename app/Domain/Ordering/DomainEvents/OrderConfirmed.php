@@ -8,7 +8,5 @@ class OrderConfirmed
 {
     public function __construct(
         public readonly Order $order
-    ) {
-    }
+    ) {}
 }
-

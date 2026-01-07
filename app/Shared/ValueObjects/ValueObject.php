@@ -17,4 +17,3 @@ abstract class ValueObject
      */
     abstract protected function getValues(): array;
 }
-

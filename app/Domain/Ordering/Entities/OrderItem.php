@@ -9,10 +9,15 @@ use InvalidArgumentException;
 class OrderItem extends Entity
 {
     private string $productId;
+
     private string $productName;
+
     private string $productSku;
+
     private Money $unitPrice;
+
     private int $quantity;
+
     private Money $totalPrice;
 
     public function __construct(
@@ -123,4 +128,3 @@ class OrderItem extends Entity
         $this->setQuantity($this->quantity - $amount);
     }
 }
-

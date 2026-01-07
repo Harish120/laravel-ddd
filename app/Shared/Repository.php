@@ -10,4 +10,3 @@ interface Repository
 
     public function delete(Entity $entity): void;
 }
-

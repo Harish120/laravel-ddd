@@ -24,4 +24,3 @@ interface ProductRepository
      */
     public function findActive(): array;
 }
-

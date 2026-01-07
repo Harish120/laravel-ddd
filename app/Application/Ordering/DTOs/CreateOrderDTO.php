@@ -7,7 +7,7 @@ use App\Shared\ValueObjects\Address;
 class CreateOrderDTO
 {
     /**
-     * @param OrderItemDTO[] $items
+     * @param  OrderItemDTO[]  $items
      */
     public function __construct(
         public readonly string $customerId,
@@ -15,7 +15,5 @@ class CreateOrderDTO
         public readonly ?Address $shippingAddress = null,
         public readonly ?Address $billingAddress = null,
         public readonly ?string $notes = null
-    ) {
-    }
+    ) {}
 }
-

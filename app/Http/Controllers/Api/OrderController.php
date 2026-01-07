@@ -14,8 +14,7 @@ class OrderController extends Controller
 {
     public function __construct(
         private readonly OrderService $orderService
-    ) {
-    }
+    ) {}
 
     public function store(Request $request): JsonResponse
     {
@@ -35,7 +34,7 @@ class OrderController extends Controller
         ]);
 
         $items = array_map(
-            fn($item) => new OrderItemDTO($item['product_id'], $item['quantity']),
+            fn ($item) => new OrderItemDTO($item['product_id'], $item['quantity']),
             $validated['items']
         );
 
@@ -108,7 +107,7 @@ class OrderController extends Controller
                     'tax' => $order->getTax()->getAmount(),
                     'total' => $order->getTotal()->getAmount(),
                     'currency' => $order->getTotal()->getCurrency(),
-                    'items' => array_map(fn($item) => [
+                    'items' => array_map(fn ($item) => [
                         'id' => $item->getId(),
                         'product_id' => $item->getProductId(),
                         'product_name' => $item->getProductName(),

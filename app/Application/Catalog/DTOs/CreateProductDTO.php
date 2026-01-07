@@ -13,7 +13,5 @@ class CreateProductDTO
         public readonly int $stockQuantity = 0,
         public readonly ?string $sku = null,
         public readonly ?string $categoryId = null
-    ) {
-    }
+    ) {}
 }
-

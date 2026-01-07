@@ -21,4 +21,3 @@ abstract class Entity
         return get_class($this) === get_class($other) && $this->id === $other->id;
     }
 }
-

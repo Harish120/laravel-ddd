@@ -9,4 +9,3 @@ class EntityNotFoundException extends DomainException
         return new self("{$entityName} with identifier '{$identifier}' not found");
     }
 }
-

@@ -17,4 +17,3 @@ Route::prefix('api')->group(function () {
     Route::get('/orders/{id}', [OrderController::class, 'show']);
     Route::post('/orders/{id}/confirm', [OrderController::class, 'confirm']);
 });
-

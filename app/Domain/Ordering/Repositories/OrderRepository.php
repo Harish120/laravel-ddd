@@ -21,4 +21,3 @@ interface OrderRepository
 
     public function generateOrderNumber(): string;
 }
-

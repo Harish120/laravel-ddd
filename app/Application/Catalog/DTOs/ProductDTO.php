@@ -16,7 +16,5 @@ class ProductDTO
         public readonly string $status,
         public readonly ?string $categoryId,
         public readonly array $images
-    ) {
-    }
+    ) {}
 }
-

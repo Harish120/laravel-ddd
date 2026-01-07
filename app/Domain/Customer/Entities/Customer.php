@@ -9,11 +9,17 @@ use InvalidArgumentException;
 class Customer extends Entity
 {
     private string $email;
+
     private string $firstName;
+
     private string $lastName;
+
     private ?string $phone = null;
+
     private ?Address $billingAddress = null;
+
     private ?Address $shippingAddress = null;
+
     private bool $isActive = true;
 
     public function __construct(
@@ -33,7 +39,7 @@ class Customer extends Entity
 
     public function setEmail(string $email): void
     {
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        if (! filter_var($email, FILTER_VALIDATE_EMAIL)) {
             throw new InvalidArgumentException('Invalid email address');
         }
         $this->email = strtolower(trim($email));
@@ -125,4 +131,3 @@ class Customer extends Entity
         return $this->shippingAddress !== null;
     }
 }
-

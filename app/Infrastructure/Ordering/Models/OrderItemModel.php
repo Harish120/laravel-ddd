@@ -2,8 +2,8 @@
 
 namespace App\Infrastructure\Ordering\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class OrderItemModel extends Model
@@ -36,4 +36,3 @@ class OrderItemModel extends Model
         return $this->belongsTo(OrderModel::class, 'order_id');
     }
 }
-

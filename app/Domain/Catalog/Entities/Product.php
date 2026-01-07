@@ -2,20 +2,27 @@
 
 namespace App\Domain\Catalog\Entities;
 
+use App\Domain\Catalog\ValueObjects\ProductStatus;
 use App\Shared\Entity;
 use App\Shared\ValueObjects\Money;
-use App\Domain\Catalog\ValueObjects\ProductStatus;
 use InvalidArgumentException;
 
 class Product extends Entity
 {
     private ?string $sku = null;
+
     private string $name;
+
     private string $description;
+
     private Money $price;
+
     private int $stockQuantity = 0;
+
     private ProductStatus $status;
+
     private ?string $categoryId = null;
+
     private array $images = [];
 
     public function __construct(
@@ -117,17 +124,17 @@ class Product extends Entity
 
     public function addImage(string $imageUrl): void
     {
-        if (!filter_var($imageUrl, FILTER_VALIDATE_URL)) {
+        if (! filter_var($imageUrl, FILTER_VALIDATE_URL)) {
             throw new InvalidArgumentException('Invalid image URL');
         }
-        if (!in_array($imageUrl, $this->images, true)) {
+        if (! in_array($imageUrl, $this->images, true)) {
             $this->images[] = $imageUrl;
         }
     }
 
     public function removeImage(string $imageUrl): void
     {
-        $this->images = array_values(array_filter($this->images, fn($img) => $img !== $imageUrl));
+        $this->images = array_values(array_filter($this->images, fn ($img) => $img !== $imageUrl));
     }
 
     public function isAvailable(): bool
@@ -167,4 +174,3 @@ class Product extends Entity
         $this->status = ProductStatus::DRAFT();
     }
 }
-

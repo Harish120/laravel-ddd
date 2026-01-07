@@ -2,8 +2,8 @@
 
 namespace App\Infrastructure\Customer\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Model;
 
 class CustomerModel extends Model
 {
@@ -28,4 +28,3 @@ class CustomerModel extends Model
         'is_active' => 'boolean',
     ];
 }
-

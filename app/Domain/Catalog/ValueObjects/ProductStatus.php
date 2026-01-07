@@ -8,12 +8,14 @@ use InvalidArgumentException;
 class ProductStatus extends ValueObject
 {
     private const DRAFT = 'draft';
+
     private const ACTIVE = 'active';
+
     private const ARCHIVED = 'archived';
 
     private function __construct(private readonly string $value)
     {
-        if (!in_array($value, [self::DRAFT, self::ACTIVE, self::ARCHIVED], true)) {
+        if (! in_array($value, [self::DRAFT, self::ACTIVE, self::ARCHIVED], true)) {
             throw new InvalidArgumentException("Invalid product status: {$value}");
         }
     }
@@ -68,4 +70,3 @@ class ProductStatus extends ValueObject
         return ['value' => $this->value];
     }
 }
-

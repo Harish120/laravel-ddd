@@ -8,7 +8,5 @@ class CustomerCreated
 {
     public function __construct(
         public readonly Customer $customer
-    ) {
-    }
+    ) {}
 }
-
