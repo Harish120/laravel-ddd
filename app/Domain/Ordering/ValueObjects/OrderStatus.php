@@ -58,6 +58,19 @@ class OrderStatus extends ValueObject
         return new self(self::CANCELLED);
     }
 
+    public static function from(string $value): self
+    {
+        return match ($value) {
+            self::PENDING => self::PENDING(),
+            self::CONFIRMED => self::CONFIRMED(),
+            self::PROCESSING => self::PROCESSING(),
+            self::SHIPPED => self::SHIPPED(),
+            self::DELIVERED => self::DELIVERED(),
+            self::CANCELLED => self::CANCELLED(),
+            default => throw new InvalidArgumentException("Invalid order status: {$value}"),
+        };
+    }
+
     public function getValue(): string
     {
         return $this->value;

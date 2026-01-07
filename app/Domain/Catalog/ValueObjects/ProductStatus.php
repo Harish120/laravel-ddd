@@ -33,6 +33,16 @@ class ProductStatus extends ValueObject
         return new self(self::ARCHIVED);
     }
 
+    public static function from(string $value): self
+    {
+        return match ($value) {
+            self::DRAFT => self::DRAFT(),
+            self::ACTIVE => self::ACTIVE(),
+            self::ARCHIVED => self::ARCHIVED(),
+            default => throw new InvalidArgumentException("Invalid product status: {$value}"),
+        };
+    }
+
     public function getValue(): string
     {
         return $this->value;
