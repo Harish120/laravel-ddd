@@ -69,6 +69,11 @@ class Order extends Entity
         return $this->status;
     }
 
+    public function setStatus(OrderStatus $status): void
+    {
+        $this->status = $status;
+    }
+
     public function getItems(): array
     {
         return $this->items;
@@ -140,6 +145,11 @@ class Order extends Entity
             throw new InvalidArgumentException('Cannot add items to a non-pending order');
         }
 
+        $this->addItemInternal($item);
+    }
+
+    private function addItemInternal(OrderItem $item): void
+    {
         // Check if item with same product already exists
         foreach ($this->items as $existingItem) {
             if ($existingItem->getProductId() === $item->getProductId()) {
@@ -242,7 +252,7 @@ class Order extends Entity
         $this->updatedAt = new \DateTimeImmutable();
     }
 
-    private function recalculateTotals(): void
+    public function recalculateTotals(): void
     {
         $this->subtotal = new Money(0);
         foreach ($this->items as $item) {
@@ -252,6 +262,16 @@ class Order extends Entity
         $this->total = $this->subtotal
             ->add($this->shippingCost)
             ->add($this->tax);
+    }
+
+    /**
+     * Restore items from persistence (bypasses validation)
+     * This method should only be used by repositories when loading from database
+     */
+    public function restoreItems(array $items): void
+    {
+        $this->items = $items;
+        $this->recalculateTotals();
     }
 
     public function getItemCount(): int
